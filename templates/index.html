@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Leivontareseptit</title>
+</head>
+
+<body>
+    <h1> 
+        Baking recipes :)
+    </h1>
+    {% if session.username %}
+    <p>
+        You are logged in as {{ session.username }}
+    </p>
+    {% endif %}
+    <p style= "margin-left: 1rem">
+        {% if not session.username %}
+            <a href="/login">Log in</a><br> 
+            <a href="/register">Register</a><br>
+        {% endif %}
+
+        {% if session.username %}
+            <a href="/logout">Log out</a><br>
+        {% endif %}
+    </p>
+
+</body>
+
+</html>
