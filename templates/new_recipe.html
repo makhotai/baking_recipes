@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>New recipe</title>
+</head>
+
+<body>
+    <h1> new recipe </h1>
+    <form action="/create_recipe" method="post">
+
+    <p>
+      recipe name: <br />
+      <input type="text" name="title" size="40"/>
+    </p>
+
+    <p>
+      description of the recipe: <br />
+      <textarea name="description_r" rows="5" cols="60"></textarea>
+    </p>
+
+    <p>
+      servings: <br />
+      <input type="text" name="servings" />
+    </p>
+
+    <p>
+      ingredients: <br />
+      <textarea name="ingredients" rows="5" cols="60"></textarea>
+    </p>
+
+    <p>
+      method: <br />
+      <textarea name="method" rows="10" cols="60"></textarea>
+    </p>
+
+    <input type="submit" value="add new recipe" />
+  </form>
+</body>
+
+</html>

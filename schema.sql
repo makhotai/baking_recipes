@@ -4,3 +4,13 @@ CREATE TABLE users (
     username TEXT UNIQUE,
     password_hash TEXT
 );
+
+CREATE TABLE recipes (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    description_r TEXT,
+    servings TEXT,
+    ingredients TEXT,
+    method TEXT,
+    user_id INTEGER REFERENCES users
+);
