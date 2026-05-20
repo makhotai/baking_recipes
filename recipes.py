@@ -13,8 +13,22 @@ def get_recipes():
     return db.query(sql)
 
 def get_recipe(recipe_id):
-    sql = """SELECT recipes.title, users.username, recipes.description_r,
-    recipes.servings, recipes.ingredients, recipes.method
+    sql = """SELECT recipes.id, recipes.title,
+    users.username, recipes.description_r,
+    recipes.servings, recipes.ingredients, recipes.method,
+    users.id user_id
     FROM recipes, users WHERE recipes.user_id = users.id AND recipes.id = ? """
     return db.query(sql, [recipe_id])[0]
+
+def update_recipe(recipe_id, title, description_r, 
+    servings, ingredients, method):
+    sql = """ UPDATE recipes SET title = ?,
+    description_r = ?,
+    servings = ?,
+    ingredients = ?,
+    method = ?
+    WHERE id = ?"""
+    db.execute(sql, [title, description_r,
+    servings, ingredients, method, recipe_id])
+    
     

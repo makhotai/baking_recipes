@@ -32,12 +32,29 @@ def create_recipe():
     method = request.form["method"]
     user_id = session["user_id"]
     
-    recipes.add_recipe(title, description_r, 
+    recipes.add_recipe(title, description_r,
     servings, ingredients, method, user_id)
     
     return redirect("/")
+
+@app.route("/edit_recipe/<int:recipe_id>")
+def edit_recipe(recipe_id):
+    recipe = recipes.get_recipe(recipe_id)
+    return render_template("edit_recipe.html", recipe=recipe)
+
+@app.route("/update_recipe", methods=["POST"])
+def update_recipe():
+    recipe_id = request.form["recipe_id"]
+    title = request.form["title"]
+    description_r = request.form["description_r"]
+    servings = request.form["servings"]
+    ingredients = request.form["ingredients"]
+    method = request.form["method"]
     
-    
+    recipes.update_recipe(recipe_id, title, description_r,
+    servings, ingredients, method)
+
+    return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/register")
 def register():
