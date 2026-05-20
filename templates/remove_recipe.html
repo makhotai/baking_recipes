@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recipe deletion</title>
+</head>
+
+<body>
+    <h1>recipe deletion</h1>
+
+    <p>
+      recipe: {{ recipe.title }}
+    </p>
+
+    <p>
+      delete selected recipe?
+    </p>
+
+    <form action="/remove_recipe/{{recipe.id}}" method="post">
+        <input type="submit" name="remove" value="delete recipe" /><br />
+        <input type="submit" name="back" value="back" />
+    </form>
+</body>
+
+</html>
