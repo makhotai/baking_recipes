@@ -45,10 +45,20 @@ def create_recipe():
     require_login()
 
     title = request.form["title"]
+    if not title or len(title) > 120:
+        abort(403)
     description_r = request.form["description_r"]
+    if not description_r or len(description_r) > 350:
+        abort(403)
     servings = request.form["servings"]
+    if not servings or len(servings) > 40:
+        abort(403)
     ingredients = request.form["ingredients"]
+    if not ingredients or len(ingredients) > 1000:
+        abort(403)
     method = request.form["method"]
+    if not method or len(method) > 3000:
+        abort(403)
     user_id = session["user_id"]
     
     recipes.add_recipe(title, description_r,

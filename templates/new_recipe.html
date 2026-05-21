@@ -11,27 +11,27 @@
 
     <p>
       recipe name: <br />
-      <input type="text" name="title" size="40"/>
+      <input type="text" name="title" size="40" maxlength="120" required/>
     </p>
 
     <p>
       description of the recipe: <br />
-      <textarea name="description_r" rows="5" cols="60"></textarea>
+      <textarea name="description_r" rows="5" cols="60" required></textarea>
     </p>
 
     <p>
       servings: <br />
-      <input type="text" name="servings" />
+      <input type="text" name="servings" maxlength="30" required/>
     </p>
 
     <p>
       ingredients: <br />
-      <textarea name="ingredients" rows="5" cols="60"></textarea>
+      <textarea name="ingredients" rows="5" cols="60" required></textarea>
     </p>
 
     <p>
       method: <br />
-      <textarea name="method" rows="10" cols="60"></textarea>
+      <textarea name="method" rows="10" cols="60" required></textarea>
     </p>
 
     <input type="submit" value="add new recipe" />
