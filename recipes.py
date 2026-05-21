@@ -22,7 +22,7 @@ def get_recipe(recipe_id):
 
 def update_recipe(recipe_id, title, description_r, 
     servings, ingredients, method):
-    sql = """ UPDATE recipes SET title = ?,
+    sql = """UPDATE recipes SET title = ?,
     description_r = ?,
     servings = ?,
     ingredients = ?,
@@ -34,3 +34,10 @@ def update_recipe(recipe_id, title, description_r,
 def remove_recipe(recipe_id):
     sql = " DELETE FROM recipes WHERE id = ?"
     db.execute(sql, [recipe_id])
+
+def find_recipes(query):
+    sql = """SELECT id, title
+    FROM recipes WHERE title LIKE ? OR description_r LIKE ?
+    ORDER BY id DESC"""
+    like = "%" + query + "%"
+    return db.query(sql, [like, like])
