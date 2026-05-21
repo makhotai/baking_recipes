@@ -45,7 +45,7 @@ def create_recipe():
     require_login()
 
     title = request.form["title"]
-    if not title or len(title) > 120:
+    if not title or len(title) > 130:
         abort(403)
     description_r = request.form["description_r"]
     if not description_r or len(description_r) > 350:
@@ -79,6 +79,7 @@ def edit_recipe(recipe_id):
 @app.route("/update_recipe", methods=["POST"])
 def update_recipe():
     require_login()
+    recipe_id = int(request.form["recipe_id"])
     recipe = recipes.get_recipe(recipe_id)
     if not recipe:
         abort(404)
@@ -87,10 +88,20 @@ def update_recipe():
 
     recipe_id = request.form["recipe_id"]
     title = request.form["title"]
+    if not title or len(title) > 130:
+        abort(403)
     description_r = request.form["description_r"]
+    if not description_r or len(description_r) > 350:
+        abort(403)
     servings = request.form["servings"]
+    if not servings or len(servings) > 40:
+        abort(403)
     ingredients = request.form["ingredients"]
+    if not ingredients or len(ingredients) > 1000:
+        abort(403)
     method = request.form["method"]
+    if not method or len(method) > 3000:
+        abort(403)
     
     recipes.update_recipe(recipe_id, title, description_r,
     servings, ingredients, method)

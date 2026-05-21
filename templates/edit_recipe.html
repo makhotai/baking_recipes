@@ -11,27 +11,27 @@
 
     <p>
       recipe name: <br />
-      <input type="text" name="title" value="{{ recipe.title }}" size="40"/>
+      <input type="text" name="title" value="{{ recipe.title }}" size="40" maxlength="120" required/>
     </p>
 
     <p>
       description of the recipe: <br />
-      <textarea name="description_r" rows="5" cols="60">{{ recipe.description_r }}</textarea>
+      <textarea name="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
     </p>
 
     <p>
       servings: <br />
-      <input type="text" name="servings" value="{{ recipe.servings }}"/>
+      <input type="text" name="servings" value="{{ recipe.servings }}" maxlength="30" required/>
     </p>
 
     <p>
       ingredients: <br />
-      <textarea name="ingredients" rows="5" cols="60">{{ recipe.ingredients }}</textarea>
+      <textarea name="ingredients" rows="5" cols="60" maxlength="900" required>{{ recipe.ingredients }}</textarea>
     </p>
 
     <p>
       method: <br />
-      <textarea name="method" rows="10" cols="60">{{ recipe.method }}</textarea>
+      <textarea name="method" rows="10" cols="60" maxlength="2900" required>{{ recipe.method }}</textarea>
     </p>
 
     <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
