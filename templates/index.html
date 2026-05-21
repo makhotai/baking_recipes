@@ -27,7 +27,9 @@
     </p>
 
     <p>
-        <a href="/new_recipe">add new recipe</a><br>
+        {% if session.username %}
+            <a href="/new_recipe">add new recipe</a><br>
+        {% endif %}
         <a href="/find_recipe">search recipe</a>
     </p>
 
