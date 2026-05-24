@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User {{ user.username }}</title>
+</head>
+
+<body>
+    <h1> {{ user.username }}'s page </h1>
+
+    <p> 
+        user added {{ recipes | count }} recipes:
+    </p>
+    <ul>
+        {% for recipe in recipes %}
+        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+    <p> <a href="/"> back </a></p>
+</body>
+</html>

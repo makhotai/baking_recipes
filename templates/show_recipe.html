@@ -12,7 +12,7 @@
     <p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
     {% endif %}
 
-    <p> author: {{ recipe.username }} </p>
+    <p> author: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> </p>
     <p>{{ recipe.description_r }} </p>
     <p> servinngs: {{ recipe.servings }} </p>
     <p> ingredients: {{ recipe.ingredients }} </p>
