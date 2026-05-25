@@ -7,11 +7,17 @@
 
 <body>
     <h1> {{ recipe.title }} </h1>
+
     {% if session.user_id == recipe.user_id %}
     <p><a href="/edit_recipe/{{ recipe.id }}">edit recipe</a></p>
     <p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
     {% endif %}
 
+    {% if classes%}
+    {% for class in classes %}
+    <p> recipe from category: {{ class.title }}</p>
+    {%endfor%}
+    {% endif %}
     <p> author: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> </p>
     <p>{{ recipe.description_r }} </p>
     <p> servinngs: {{ recipe.servings }} </p>

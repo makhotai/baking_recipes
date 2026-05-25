@@ -8,11 +8,20 @@
 <body>
     <h1> new recipe </h1>
     <form action="/create_recipe" method="post">
-
-    <p>
+      <p>
       recipe name: <br />
       <input type="text" name="title" size="40" maxlength="120" required/>
-    </p>
+      </p>
+
+      <p>
+      category of the recipe: <br />
+      <select name="classes">
+        <option value="">(choose)</option>
+        {% for class in classes %}
+          <option value="{{ class }}">{{ class }}</option>
+        {% endfor %}
+      </select>
+      </p>
 
     <p>
       description of the recipe: <br />
