@@ -24,7 +24,8 @@ def add_recipe(title, description_r,
 
 def get_classes(recipe_id):
     sql = "SELECT title FROM recipe_classes WHERE recipe_id = ?"
-    return db.query(sql, [recipe_id])
+    result = db.query(sql, [recipe_id])
+    return [res["title"] for res in result]
 
 def get_recipes():
     sql = """SELECT id, title FROM recipes ORDER BY id DESC"""
@@ -40,7 +41,7 @@ def get_recipe(recipe_id):
     return result[0] if result else None
 
 def update_recipe(recipe_id, title, description_r, 
-    servings, ingredients, method):
+    servings, ingredients, method, classes):
     sql = """UPDATE recipes SET title = ?,
     description_r = ?,
     servings = ?,
@@ -49,6 +50,11 @@ def update_recipe(recipe_id, title, description_r,
     WHERE id = ?"""
     db.execute(sql, [title, description_r,
     servings, ingredients, method, recipe_id])
+
+    db.execute("DELETE FROM recipe_classes WHERE recipe_id = ?", [recipe_id])
+    sql = "INSERT INTO recipe_classes (recipe_id, title) VALUES (?, ?)"
+    for title in classes:
+        db.execute(sql, [recipe_id, title])
 
 def remove_recipe(recipe_id):
     sql = " DELETE FROM recipes WHERE id = ?"

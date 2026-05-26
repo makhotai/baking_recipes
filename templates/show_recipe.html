@@ -14,9 +14,9 @@
     {% endif %}
 
     {% if classes%}
-    {% for class in classes %}
-    <p> recipe from category: {{ class.title }}</p>
-    {%endfor%}
+      {% for class in classes %}
+        <p> recipe from category: {{ class }}</p>
+      {% endfor %}
     {% endif %}
     <p> author: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> </p>
     <p>{{ recipe.description_r }} </p>

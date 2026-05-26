@@ -15,6 +15,18 @@
     </p>
 
     <p>
+        category of the recipe: <br />
+        <select name="classes">
+            {% for class in all_classes %}
+                <option value="{{ class }}" {% if class == recipe["classes"] %}selected{% endif %}>
+                    {{ class }}
+                </option>
+            {% endfor %}
+        </select>
+    </p>
+
+
+    <p>
       description of the recipe: <br />
       <textarea name="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
     </p>
