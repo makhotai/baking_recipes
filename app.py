@@ -5,6 +5,7 @@ import db
 import config
 import recipes
 import users
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -42,7 +43,8 @@ def show_recipe(recipe_id):
     if not recipe:
         abort(404)
     classes = recipes.get_classes(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes=classes)
+    reviews = recipes.get_reviews(recipe_id)
+    return render_template("show_recipe.html", recipe=recipe, classes=classes, reviews=reviews)
 
 @app.route("/new_recipe")
 def new_recipe():
@@ -70,12 +72,39 @@ def create_recipe():
     if not method or len(method) > 3000:
         abort(403)
     user_id = session["user_id"]
+
+    all_classes = recipes.get_class()
     classes = request.form.getlist("classes")
+    for my_class in classes:
+        if my_class:
+            if my_class not in all_classes:
+                abort(403)
     
     recipes.add_recipe(title, description_r,
     servings, ingredients, method, user_id, classes)
 
     return redirect("/")
+
+@app.route("/create_review", methods=["POST"])
+def create_review():
+    require_login()
+
+    rating_review = request.form["rating_review"]
+    if not re.search("^[[1-5]{0,1}$", rating_review):
+        abort(403)
+    text_review = request.form["text_review"]
+    if not text_review or len(text_review) > 1000:
+        abort(403)
+    user_id = session["user_id"]
+    recipe_id = request.form["recipe_id"]
+    recipe = recipes.get_recipe(recipe_id)
+    if not recipe:
+        abort(403)
+
+    recipes.add_review(rating_review, text_review,
+                       user_id, recipe_id)
+
+    return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/edit_recipe/<int:recipe_id>")
 def edit_recipe(recipe_id):
@@ -120,7 +149,13 @@ def update_recipe():
     method = request.form["method"]
     if not method or len(method) > 3000:
         abort(403)
+    all_classes = recipes.get_class()
     classes = request.form.getlist("classes")
+    for my_class in classes:
+        if my_class:
+            if my_class not in all_classes:
+                abort(403)
+
     recipes.update_recipe(recipe_id, title, description_r,
     servings, ingredients, method, classes)
 

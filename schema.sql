@@ -5,6 +5,14 @@ CREATE TABLE users (
     password_hash TEXT
 );
 
+CREATE TABLE reviews (
+    id INTEGER PRIMARY KEY,
+    rating_review INTEGER,
+    text_review TEXT,
+    recipe_id INTEGER REFERENCES recipes,
+    user_id INTEGER REFERENCES users
+);
+
 CREATE TABLE recipes (
     id INTEGER PRIMARY KEY,
     title TEXT,
