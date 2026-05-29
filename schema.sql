@@ -10,7 +10,9 @@ CREATE TABLE reviews (
     rating_review INTEGER,
     text_review TEXT,
     recipe_id INTEGER REFERENCES recipes,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
+    created_at TEXT,
+    updated_at TEXT;
 );
 
 CREATE TABLE recipes (
@@ -20,7 +22,9 @@ CREATE TABLE recipes (
     servings TEXT,
     ingredients TEXT,
     method TEXT,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
+    created_at TEXT,
+    updated_at TEXT;
 );
 
 CREATE TABLE classes (
