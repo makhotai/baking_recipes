@@ -25,7 +25,8 @@ def show_user(user_id):
     if not user:
         abort(404)
     recipes = users.get_recipes(user_id)
-    return render_template("show_user.html", user=user, recipes=recipes)
+    recipe_count = users.count_recipes(user_id)
+    return render_template("show_user.html", user=user, recipes=recipes, recipe_count=recipe_count)
 
 @app.route("/find_recipe")
 def find_recipe():
@@ -44,7 +45,8 @@ def show_recipe(recipe_id):
         abort(404)
     classes = recipes.get_classes(recipe_id)
     reviews = recipes.get_reviews(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes=classes, reviews=reviews)
+    rating_avg = recipes.get_reviews_avg(recipe_id)
+    return render_template("show_recipe.html", recipe=recipe, classes=classes, reviews=reviews, rating_avg=rating_avg)
 
 @app.route("/new_recipe")
 def new_recipe():
@@ -194,7 +196,9 @@ def create():
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
         return "ERROR: the username already exists"
-    return "user account has been created :)"
+    return """ <p>user account has been created :)</p>
+    <p><a href="/">go to main page</a></p>
+    <p><a href="/login">log in</a></p> """
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

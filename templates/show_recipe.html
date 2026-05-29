@@ -18,6 +18,11 @@
         <p> recipe from category: {{ class }}</p>
       {% endfor %}
     {% endif %}
+    {% if rating_avg is not none %}
+      <p>rating of the recipe: {{ rating_avg }} out of 5</p>
+    {% else %}
+      <p>rating of the recipe: no ratings yet </p>
+    {% endif %}
     <p> author: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> </p>
     <p>{{ recipe.description_r }} </p>
     <p> servinngs: {{ recipe.servings }} </p>
@@ -27,17 +32,24 @@
     <p> <a href="/"> back </a></p>
     <h2>questions by users TBA </h2>
 
-    <h2>comments and reviews</h2>
-    <h2>write a review or ask a question</h2>
-    <form action="/create_review" method="post">
-      <p> your rating of the recipe (1-5): <br />
-        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
-        <input type="text" name="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
-        comment: <br />
-        <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
-      </p>
-      <input type="submit" value="add new comment" />
-    </form>
+    {% if session.username %}
+      {% if session.user_id != recipe.user_id %}
+        <h2>write a review</h2>
+        <form action="/create_review" method="post">
+          <p> your rating of the recipe (1-5): <br />
+            <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
+            <input type="text" name="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
+            comment: <br />
+            <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
+          </p>
+          <input type="submit" value="add new comment" />
+        </form>
+      {% endif %}
+    {% else %}
+        <p>please, register or login to write a review</p>
+        <a href="/login">log in</a><br>
+        <a href="/register">register</a><br>
+    {% endif %}
 
     <h2>comments and reviews</h2>
     {% for review in reviews%}

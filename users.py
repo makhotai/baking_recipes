@@ -7,8 +7,16 @@ def get_user(user_id):
     return result[0] if result else None
 
 def get_recipes(user_id):
-    sql = """SELECT id, title FROM recipes WHERE user_id = ? ORDER BY id DESC """
+    sql = "SELECT id, title FROM recipes WHERE user_id = ? ORDER BY id DESC "
     return db.query(sql, [user_id])
+
+def count_recipes(user_id):
+    sql = "SELECT COUNT(*) AS recipe_count FROM recipes WHERE user_id = ?"
+    result = db.query(sql, [user_id])
+    if result and result[0]["recipe_count"] is not None:
+        return result[0]["recipe_count"]
+    else:
+        return None
 
 def create_user(username, password):
     password_hash = generate_password_hash(password)
