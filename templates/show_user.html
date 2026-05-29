@@ -7,10 +7,15 @@
 
 <body>
     <h1> {{ user.username }}'s page </h1>
-
-    <p> 
-        user added {{ recipes | count }} recipes:
-    </p>
+    {% if recipes %}
+        {% if recipe_count == 1 %}
+            <p>user published 1 recipe:</p>
+        {% else %}
+            <p>user published {{ recipe_count }} recipes:</p>
+        {% endif %}
+    {% else %}
+        <p>user has not published recipes yet</p>
+    {% endif %}
     <ul>
         {% for recipe in recipes %}
         <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>

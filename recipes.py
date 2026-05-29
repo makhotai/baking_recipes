@@ -81,3 +81,11 @@ def get_reviews(recipe_id):
     WHERE reviews.recipe_id = ? AND reviews.user_id=users.id
     ORDER BY reviews.id DESC"""
     return db.query(sql, [recipe_id])
+
+def get_reviews_avg(recipe_id):
+    sql = """SELECT id, recipe_id, AVG(rating_review) as avg_r FROM reviews WHERE recipe_id = ?"""
+    result = db.query(sql, [recipe_id])
+    if result and result[0]["avg_r"] is not None:
+        return result[0]["avg_r"]
+    else:
+        return None
