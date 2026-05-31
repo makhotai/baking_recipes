@@ -12,7 +12,7 @@
     
     {% if session.username %}
     <p>
-        you are logged in as {{ session.username }}
+        you are logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
     </p>
     {% endif %}
     <p style= "margin-left: 1rem">
@@ -34,11 +34,15 @@
     </p>
 
     <h2> recipes </h2>
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-        {% endfor %}
-    </ul>
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+            <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> there are no recipes added yet</p>
+    {% endif %}
 
 </body>
 
