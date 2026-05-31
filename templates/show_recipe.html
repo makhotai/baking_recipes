@@ -7,15 +7,18 @@
 
 <body>
     <h1> {{ recipe.title }} </h1>
-    <p>firstly published: {{ recipe.created_at }}</p>
-    {% if recipe.created_at != recipe.updated_at %}
-    <p>last update: {{ recipe.updated_at }}</p>
-    {% endif %}
 
     {% if session.user_id == recipe.user_id %}
     <p><a href="/edit_recipe/{{ recipe.id }}">edit recipe</a></p>
     <p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
     {% endif %}
+
+    <p>
+      firstly published: {{ recipe.created_at }}
+      {% if recipe.created_at != recipe.updated_at %}
+      last update: {{ recipe.updated_at }}
+      {% endif %}
+    </p>
 
     {% if classes%}
       {% for class in classes %}
