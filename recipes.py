@@ -35,7 +35,7 @@ def get_recipe(recipe_id):
     sql = """SELECT recipes.id, recipes.title,
     users.username, recipes.description_r,
     recipes.servings, recipes.ingredients, recipes.method,
-    recipes.created_at, recipes.created_at, recipes.updated_at,
+    recipes.created_at, recipes.updated_at,
     users.id user_id
     FROM recipes, users WHERE recipes.user_id = users.id AND recipes.id = ? """
     result = db.query(sql, [recipe_id])
