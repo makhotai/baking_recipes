@@ -105,3 +105,7 @@ def add_image(recipe_id, image):
     sql = "INSERT INTO images (recipe_id, image) VALUES (?, ?)"
 
     db.execute(sql, [recipe_id, image])
+
+def remove_image(recipe_id, image_id):
+    sql = "DELETE FROM images WHERE id = ? AND recipe_id = ?"
+    db.execute(sql, [image_id, recipe_id])
