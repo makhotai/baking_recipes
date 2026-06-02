@@ -37,3 +37,9 @@ CREATE TABLE recipe_classes (
     recipe_id INTEGER REFERENCES recipes,
     title TEXT
 );
+
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    recipe_id INTEGER REFERENCES recipes,
+    image BLOB
+);

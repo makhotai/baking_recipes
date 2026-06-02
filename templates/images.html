@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>recipe images</title>
+</head>
+
+<body>
+    <h1>recipe images</h1>
+    <p> recipe has {{ images | count }} pictures </p>
+    <p> <a href="/recipe/{{ recipe.id }}"> back to recipe </a></p>
+
+    <h2>add new pictures</h2>
+    <form action="/add_image" method="post" enctype="multipart/form-data">
+        <p>
+        picture: <input type="file" name="image" accept=".png" />
+        </p>
+        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
+        <input type="submit" value="submit" />
+    </form>
+
+</body>
+</html>
