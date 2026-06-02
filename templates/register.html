@@ -7,6 +7,16 @@
 </head>
 
 <body>
+  <h1> create new account </h1>
+  {% if session.user_id %}
+  <p>
+    you are logged in as {{ session.username }} <br>
+    please, log out if you want to create new account first
+  </p>
+  <p>
+    <a href="/logout">log out</a>
+  </p>
+  {% else %}
   <form action="/create" method="post">
     <p>
       username: <br />
@@ -20,8 +30,11 @@
       password once again: <br />
       <input type="password" name="password2" />
     </p>
-    <input type="submit" value="create user account" />
+    <input type="submit" value="create new account" />
   </form>
+  <p>already have an account? <a href="/login">log in</a></p>
+  {% endif %}
+  <p> <a href="/"> back to main page</a></p>
 </body>
 
 </html>
