@@ -1,49 +1,21 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block title %}Baking recipes{% endblock %}
+
+{% block content %}
 <html>
 
 <head>
   <title>Baking recipes</title>
 </head>
-
-<body>
-    <h1> 
-        baking recipes
-    </h1>
-    
-    {% if session.user_id %}
-    <p>
-        you are logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
-    </p>
-    {% endif %}
-    <p style= "margin-left: 1rem">
-        {% if not session.user_id %}
-            <a href="/login">log in</a><br>
-            <a href="/register">register</a><br>
-        {% endif %}
-
-        {% if session.user_id %}
-            <a href="/logout">log out</a><br>
-        {% endif %}
-    </p>
-
-    <p>
-        {% if session.user_id %}
-            <a href="/new_recipe">add new recipe</a><br>
-        {% endif %}
-        <a href="/find_recipe">search recipe</a>
-    </p>
-
-    <h2> recipes </h2>
-    {% if recipes %}
-        <ul>
-            {% for recipe in recipes %}
-            <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p> there are no recipes added yet</p>
-    {% endif %}
-
-</body>
-
-</html>
+<h2> recipes </h2>
+{% if recipes %}
+    <ul>
+        {% for recipe in recipes %}
+        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p> there are no recipes added yet</p>
+{% endif %}
+{% endblock %}
