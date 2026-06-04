@@ -1,34 +1,26 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Find recipe</title>
-</head>
+{% block title %}Search recipe{% endblock %}
 
-<body>
-    <h1> 
-        search recipe
-    </h1>
-    <form action="/find_recipe" method="get">
-        <p>
-            search by word: <input type="text" name="query" value="{{ query }}"size="30"/><br>
-            <input type="submit" value="search"/>
-        </p>
-        <p> <a href="/"> back </a></p>
+{% block content %}
+<h2>
+    search recipe
+</h2>
+<form action="/find_recipe" method="get">
+    <p>
+        search by word: <input type="text" name="query" value="{{ query }}"size="30"/><br>
+        <input type="submit" value="search"/>
+    </p>
 
-        {% if query %}
-        <h2>the results for "{{ query }}"</h2>
+    {% if query %}
+    <h2>the results for "{{ query }}"</h2>
 
-        <ul>
-            {% for recipe in results %}
-            <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </form>
+    <ul>
+        {% for recipe in results %}
+        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</form>
 
-    
-
-</body>
-
-</html>
+{% endblock %}
