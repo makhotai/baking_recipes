@@ -1,28 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>User {{ user.username }}</title>
-</head>
+{% block title %}{{ user.username }}{% endblock %}
 
-<body>
-    <h1> {{ user.username }}'s page </h1>
-    {% if recipes %}
-        {% if recipe_count == 1 %}
-            <p>user published 1 recipe:</p>
-        {% else %}
-            <p>user published {{ recipe_count }} recipes:</p>
-        {% endif %}
+{% block content %}
+<h2> {{ user.username }}'s page </h2>
+{% if recipes %}
+    {% if recipe_count == 1 %}
+        <p>user published 1 recipe:</p>
     {% else %}
-        <p>user has not published recipes yet</p>
+        <p>user published {{ recipe_count }} recipes:</p>
     {% endif %}
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-        {% endfor %}
-    </ul>
-
-
-    <p> <a href="/"> back </a></p>
-</body>
-</html>
+{% else %}
+    <p>user has not published recipes yet</p>
+{% endif %}
+<ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

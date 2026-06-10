@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="/static/main.css">
 <head>
   <title>New recipe</title>
 </head>
@@ -9,37 +9,37 @@
     <h1> new recipe </h1>
     <form action="/create_recipe" method="post">
       <p>
-      recipe name: <br />
-      <input type="text" name="title" size="40" maxlength="120" required/>
+        <b>recipe name:</b> <br />
+        <input type="text" name="title" size="40" maxlength="120" required/>
       </p>
 
       <p>
-      category of the recipe: <br />
-      <select name="classes">
-        <option value="">(choose)</option>
-        {% for class in classes %}
-          <option value="{{ class }}">{{ class }}</option>
-        {% endfor %}
-      </select>
+        <b>category of the recipe:</b> <br />
+        <select name="classes">
+          <option value="">(choose)</option>
+          {% for class in classes %}
+            <option value="{{ class }}">{{ class }}</option>
+          {% endfor %}
+        </select>
       </p>
 
     <p>
-      description of the recipe: <br />
+      <b>description of the recipe:</b> <br />
       <textarea name="description_r" rows="5" cols="60" maxlength="300" required></textarea>
     </p>
 
     <p>
-      servings: <br />
+      <b>servings:</b> <br />
       <input type="text" name="servings" maxlength="30" required/>
     </p>
 
     <p>
-      ingredients: <br />
+      <b>ingredients:</b> <br />
       <textarea name="ingredients" rows="5" cols="60" maxlength="900" required></textarea>
     </p>
 
     <p>
-      method: <br />
+      <b>method:</b> <br />
       <textarea name="method" rows="10" cols="60" maxlength="2900" required></textarea>
     </p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />

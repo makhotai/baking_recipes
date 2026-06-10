@@ -3,34 +3,27 @@
 
 <head>
   <title>{% block title %}{% endblock %}</title>
-  
+  <link rel="stylesheet" href="/static/main.css">
 </head>
 
 
     <h1>baking recipes</h1>
     
     {% if session.user_id %}
-    <p>
-        you are logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
-    </p>
+        <p>
+            logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a> | <a href="/logout">log out</a>
+        </p>
+    {% else %}
+        <p>
+            <a href="/login">log in</a> | <a href="/register">register</a>
+        </p>
     {% endif %}
-    <p style= "margin-left: 1rem">
-        {% if not session.user_id %}
-            <a href="/login">log in</a><br>
-            <a href="/register">register</a><br>
-        {% endif %}
-
-        {% if session.user_id %}
-            <a href="/logout">log out</a><br>
-        {% endif %}
-    </p>
 
     <p>
-        <a href="/">main page</a><br>
+        <a href="/">main page</a> | <a href="/find_recipe">search recipe</a> | 
         {% if session.user_id %}
-            <a href="/new_recipe">add new recipe</a><br>
+            <a href="/new_recipe">add new recipe</a>
         {% endif %}
-        <a href="/find_recipe">search recipe</a>
     </p>
 
     {% block content %}{% endblock %}

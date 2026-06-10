@@ -101,8 +101,10 @@ def create_recipe():
     
     recipes.add_recipe(title, description_r,
     servings, ingredients, method, user_id, classes)
+    
+    recipe_id = db.last_insert_id()
 
-    return redirect("/")
+    return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/create_review", methods=["POST"])
 def create_review():
