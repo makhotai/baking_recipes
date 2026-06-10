@@ -54,6 +54,7 @@
             comment: <br />
             <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
           </p>
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
           <input type="submit" value="add new comment" />
         </form>
       {% endif %}
