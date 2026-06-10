@@ -3,13 +3,13 @@
 {% block title %}{{ recipe.title }}{% endblock %}
 
 {% block content %}
-  <h2> {{ recipe.title }} </h2>
+<h2> {{ recipe.title }} </h2>
 
-  {% if session.user_id == recipe.user_id %}
-  <p><a href="/edit_recipe/{{ recipe.id }}">edit recipe</a></p>
-  <p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
-  <p> <a href="/images/{{ recipe.id }}">add/remove photos</a></p>
-  {% endif %}
+{% if session.user_id == recipe.user_id %}
+<p><a href="/edit_recipe/{{ recipe.id }}">edit recipe</a></p>
+<p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
+<p> <a href="/images/{{ recipe.id }}">add/remove photos</a></p>
+{% endif %}
 
   <p>
     firstly published: {{ recipe.created_at }}
@@ -39,10 +39,9 @@
   <p> ingredients: {{ recipe.ingredients }} </p>
   <p> method: {{ recipe.method }} </p>
 
-
+  <h2>write a review</h2>
   {% if session.username %}
     {% if session.user_id != recipe.user_id %}
-      <h2>write a review</h2>
       <form action="/create_review" method="post">
         <p> your rating of the recipe (1-5): <br />
           <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
@@ -50,6 +49,7 @@
           comment: <br />
           <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
         </p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
         <input type="submit" value="add new comment" />
       </form>
     {% endif %}

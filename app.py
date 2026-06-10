@@ -3,6 +3,7 @@ from flask import Flask
 from flask import abort, make_response, redirect, render_template, request, session
 import db
 import config
+import secrets
 import recipes
 import users
 import re
@@ -12,6 +13,12 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/")
@@ -59,6 +66,7 @@ def new_recipe():
 @app.route("/create_recipe", methods=["POST"])
 def create_recipe():
     require_login()
+    check_csrf()
 
     title = request.form["title"]
     if not title or len(title) > 130:
@@ -92,6 +100,7 @@ def create_recipe():
 @app.route("/create_review", methods=["POST"])
 def create_review():
     require_login()
+    check_csrf()
 
     rating_review = request.form["rating_review"]
     if not re.search("^[[1-5]{0,1}$", rating_review):
@@ -130,6 +139,8 @@ def edit_recipe(recipe_id):
 @app.route("/update_recipe", methods=["POST"])
 def update_recipe():
     require_login()
+    check_csrf()
+
     recipe_id = int(request.form["recipe_id"])
     recipe = recipes.get_recipe(recipe_id)
     if not recipe:
@@ -168,6 +179,8 @@ def update_recipe():
 @app.route("/remove_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def remove_recipe(recipe_id):
     require_login()
+    check_csrf()
+
     recipe = recipes.get_recipe(recipe_id)
     if not recipe:
         abort(404)
@@ -186,6 +199,7 @@ def remove_recipe(recipe_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
+    check_csrf()
 
     recipe_id = request.form["recipe_id"]
     recipe = recipes.get_recipe(recipe_id)
@@ -207,6 +221,7 @@ def add_image():
 @app.route("/remove_images", methods=["POST"])
 def remove_images():
     require_login()
+    check_csrf()
 
     recipe_id = request.form["recipe_id"]
     recipe = recipes.get_recipe(recipe_id)
@@ -274,6 +289,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             return "ERROR: the username or/and password are incorrect"
