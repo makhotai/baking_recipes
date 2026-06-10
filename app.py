@@ -4,6 +4,7 @@ from flask import abort, make_response, redirect, render_template, request, sess
 import db
 import config
 import secrets
+import markupsafe
 import recipes
 import users
 import re
@@ -20,6 +21,12 @@ def check_csrf():
         abort(403)
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
 
 @app.route("/")
 def index():
@@ -179,7 +186,6 @@ def update_recipe():
 @app.route("/remove_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def remove_recipe(recipe_id):
     require_login()
-    check_csrf()
 
     recipe = recipes.get_recipe(recipe_id)
     if not recipe:
