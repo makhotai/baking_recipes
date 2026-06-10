@@ -1,55 +1,51 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Recipe editing</title>
-</head>
+{% block title %}Recipe editing{% endblock %}
 
-<body>
-    <h1> recipe editing </h1>
-    <form action="/update_recipe" method="post">
+{% block content %}
+<h2> recipe editing </h2>
+<p> <a href="/recipe/{{ recipe.id }}"> back to recipe </a></p>
+<form action="/update_recipe" method="post">
 
-    <p>
-      recipe name: <br />
-      <input type="text" name="title" value="{{ recipe.title }}" size="40" maxlength="120" required/>
-    </p>
+<p>
+  <b>recipe name:</b> <br />
+  <input type="text" name="title" value="{{ recipe.title }}" size="40" maxlength="120" required/>
+</p>
 
-    <p>
-        category of the recipe: <br />
-        <select name="classes">
-            {% for class in all_classes %}
-                <option value="{{ class }}" {% if class == recipe["classes"] %}selected{% endif %}>
-                    {{ class }}
-                </option>
-            {% endfor %}
-        </select>
-    </p>
+<p>
+    <b>category of the recipe:</b> <br />
+    <select name="classes">
+        {% for class in all_classes %}
+            <option value="{{ class }}" {% if class == recipe["classes"] %}selected{% endif %}>
+                {{ class }}
+            </option>
+        {% endfor %}
+    </select>
+</p>
 
 
-    <p>
-      description of the recipe: <br />
-      <textarea name="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
-    </p>
+<p>
+  <b>description of the recipe:</b> <br />
+  <textarea name="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
+</p>
 
-    <p>
-      servings: <br />
-      <input type="text" name="servings" value="{{ recipe.servings }}" maxlength="30" required/>
-    </p>
+<p>
+  <b>servings:</b> <br />
+  <input type="text" name="servings" value="{{ recipe.servings }}" maxlength="30" required/>
+</p>
 
-    <p>
-      ingredients: <br />
-      <textarea name="ingredients" rows="5" cols="60" maxlength="900" required>{{ recipe.ingredients }}</textarea>
-    </p>
+<p>
+  <b>ingredients:</b> <br />
+  <textarea name="ingredients" rows="5" cols="60" maxlength="900" required>{{ recipe.ingredients }}</textarea>
+</p>
 
-    <p>
-      method: <br />
-      <textarea name="method" rows="10" cols="60" maxlength="2900" required>{{ recipe.method }}</textarea>
-    </p>
+<p>
+  <b>method:</b> <br />
+  <textarea name="method" rows="10" cols="60" maxlength="2900" required>{{ recipe.method }}</textarea>
+</p>
 
-    <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" value="confirm changes" />
-  </form>
-</body>
-
-</html>
+<input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+<input type="submit" value="confirm changes" />
+</form>
+{% endblock %}
