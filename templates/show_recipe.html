@@ -57,8 +57,8 @@
 <h3> method: </h3>
 <p>{{ recipe.method | show_lines }} </p>
 
+<h3>write a review</h3>
 {% if session.username %}
-  <h3>write a review</h3>
   {% if session.user_id != recipe.user_id %}
     <form action="/create_review" method="post">
       <p> your rating of the recipe (1-5): <br />
@@ -74,9 +74,10 @@
     <p>sorry, but you cannot leave a review to your own recipe</p>
   {% endif %}
 {% else %}
-    <p>please, register or login to write a review</p>
-    <a href="/login">log in</a><br>
-    <a href="/register">register</a><br>
+    <p>
+      please, <a href="/register">register</a> or <a href="/login">log in</a> 
+      to write a review
+    </p>
 {% endif %}
 
 <h2>comments and reviews</h2>
