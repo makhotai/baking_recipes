@@ -42,7 +42,7 @@
       method: <br />
       <textarea name="method" rows="10" cols="60" maxlength="2900" required></textarea>
     </p>
-
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="add new recipe" />
   </form>
 </body>

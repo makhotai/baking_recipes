@@ -17,8 +17,9 @@
     </p>
 
     <form action="/remove_recipe/{{recipe.id}}" method="post">
-        <input type="submit" name="remove" value="delete recipe" /><br />
-        <input type="submit" name="back" value="back" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+      <input type="submit" name="remove" value="delete recipe" /><br />
+      <input type="submit" name="back" value="back" />
     </form>
 </body>
 

@@ -38,8 +38,6 @@
   <p> servinngs: {{ recipe.servings }} </p>
   <p> ingredients: {{ recipe.ingredients }} </p>
   <p> method: {{ recipe.method }} </p>
-
-
   {% if session.username %}
     {% if session.user_id != recipe.user_id %}
       <h2>write a review</h2>
@@ -50,8 +48,14 @@
           comment: <br />
           <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
         </p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
         <input type="submit" value="add new comment" />
       </form>
+    {% endif %}
+    {% else %}
+        <p>please, register or login to write a review</p>
+        <a href="/login">log in</a><br>
+        <a href="/register">register</a><br>
     {% endif %}
   {% else %}
       <p>please, register or login to write a review</p>
