@@ -12,7 +12,7 @@ CREATE TABLE reviews (
     recipe_id INTEGER REFERENCES recipes,
     user_id INTEGER REFERENCES users,
     created_at TEXT,
-    updated_at TEXT;
+    updated_at TEXT
 );
 
 CREATE TABLE recipes (
@@ -24,7 +24,7 @@ CREATE TABLE recipes (
     method TEXT,
     user_id INTEGER REFERENCES users,
     created_at TEXT,
-    updated_at TEXT;
+    updated_at TEXT
 );
 
 CREATE TABLE classes (
