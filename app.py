@@ -40,7 +40,9 @@ def show_user(user_id):
         abort(404)
     recipes = users.get_recipes(user_id)
     recipe_count = users.count_recipes(user_id)
-    return render_template("show_user.html", user=user, recipes=recipes, recipe_count=recipe_count)
+    review_count = users.count_reviews(user_id)
+    return render_template("show_user.html", user=user, recipes=recipes,
+                           recipe_count=recipe_count, review_count=review_count)
 
 @app.route("/find_recipe")
 def find_recipe():

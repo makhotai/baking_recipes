@@ -18,6 +18,11 @@ def count_recipes(user_id):
     else:
         return None
 
+def count_reviews(user_id):
+    sql = "SELECT COUNT(id) AS review_count FROM reviews WHERE user_id = ?"
+    result = db.query(sql, [user_id])
+    return result[0]["review_count"] if result else 0
+
 def create_user(username, password):
     password_hash = generate_password_hash(password)
     sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"

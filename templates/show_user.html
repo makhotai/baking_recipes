@@ -4,14 +4,21 @@
 
 {% block content %}
 <h2> {{ user.username }}'s page </h2>
+
+{% if review_count == 1 %}
+    <p>the user has left 1 review</p>
+{% else %}
+    <p>the user has left {{ review_count }} reviews</p>
+{% endif %}
+
 {% if recipes %}
     {% if recipe_count == 1 %}
-        <p>user published 1 recipe:</p>
+        <p>{{ user.username }} has published 1 recipe:</p>
     {% else %}
-        <p>user published {{ recipe_count }} recipes:</p>
+        <p>{{ user.username }} has published {{ recipe_count }} recipes:</p>
     {% endif %}
 {% else %}
-    <p>user has not published recipes yet</p>
+    <p>{{ user.username }} has not published recipes yet</p>
 {% endif %}
 <ul>
     {% for recipe in recipes %}
