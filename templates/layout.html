@@ -20,9 +20,9 @@
     {% endif %}
 
     <p>
-        <a href="/">main page</a> | <a href="/find_recipe">search recipe</a> | 
+        <a href="/">main page</a> | <a href="/find_recipe">search recipe</a> 
         {% if session.user_id %}
-            <a href="/new_recipe">add new recipe</a>
+         | <a href="/new_recipe">add new recipe</a>
         {% endif %}
     </p>
 

@@ -6,12 +6,6 @@
 <h2> {{ recipe.title }} </h2>
 
 {% if session.user_id == recipe.user_id %}
-<<<<<<< HEAD
-<p><a href="/edit_recipe/{{ recipe.id }}">edit recipe</a></p>
-<p><a href="/remove_recipe/{{ recipe.id }}">remove recipe</a></p>
-<p> <a href="/images/{{ recipe.id }}">add/remove photos</a></p>
-{% endif %}
-=======
 <p>
   <a href="/edit_recipe/{{ recipe.id }}">edit recipe</a> | 
   <a href="/remove_recipe/{{ recipe.id }}">remove recipe</a> | 
@@ -25,13 +19,13 @@
   last update: {{ recipe.updated_at }}
   {% endif %}
 </p>
->>>>>>> 465eb4b (Improve page style)
 
 <p>
   <b>author:</b> <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> | 
   {% if classes%}
+    <b>categorie(s):</b>
     {% for class in classes %}
-      <b>category:</b> {{ class }} | 
+      {{ class }};
     {% endfor %}
   {% endif %}
   {% if rating_avg is not none %}

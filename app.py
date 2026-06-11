@@ -94,6 +94,8 @@ def create_recipe():
 
     all_classes = recipes.get_class()
     classes = request.form.getlist("classes")
+    if not classes:
+        abort(403)
     for my_class in classes:
         if my_class:
             if my_class not in all_classes:
@@ -139,11 +141,8 @@ def edit_recipe(recipe_id):
 
     all_classes = recipes.get_class()
     selected_classes = recipes.get_classes(recipe_id)
-    if selected_classes:
-        selected_class = selected_classes[0]
-    else:
-        selected_class = ""
-    return render_template("edit_recipe.html", recipe=recipe, all_classes=all_classes, selected_class=selected_class)
+    return render_template("edit_recipe.html", recipe=recipe,
+        all_classes=all_classes, selected_classes=selected_classes)
 
 @app.route("/update_recipe", methods=["POST"])
 def update_recipe():
