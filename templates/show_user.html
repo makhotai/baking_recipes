@@ -5,24 +5,30 @@
 {% block content %}
 <h2> {{ user.username }}'s page </h2>
 
-{% if review_count == 1 %}
-    <p>the user has left 1 review</p>
-{% else %}
-    <p>the user has left {{ review_count }} reviews</p>
-{% endif %}
+<p>
+    {% if review_count == 1 %}
+        the user has left <b>1 review</b> and 
+    {% else %}
+        the user has left <b>{{ review_count }} reviews</b> and 
+    {% endif %}
+
+    {% if recipes %}
+        {% if recipe_count == 1 %}
+            has published <b>1 recipe</b>
+        {% else %}
+            has published <b>{{ recipe_count }}</b> recipes
+        {% endif %}
+    {% else %}
+        has <b>not published recipes</b> yet
+    {% endif %}
+</p>
 
 {% if recipes %}
-    {% if recipe_count == 1 %}
-        <p>{{ user.username }} has published 1 recipe:</p>
-    {% else %}
-        <p>{{ user.username }} has published {{ recipe_count }} recipes:</p>
-    {% endif %}
-{% else %}
-    <p>{{ user.username }} has not published recipes yet</p>
+    <h3> recipes published by {{ user.username }}: </h3>
+    <ul>
+        {% for recipe in recipes %}
+        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+        {% endfor %}
+    </ul>
 {% endif %}
-<ul>
-    {% for recipe in recipes %}
-    <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-    {% endfor %}
-</ul>
 {% endblock %}
