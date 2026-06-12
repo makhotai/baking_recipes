@@ -1,36 +1,31 @@
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="/static/main.css">
-<head>
-  <title>recipe images</title>
-</head>
+{% extends "layout.html" %}
 
-<body>
-    <h1>recipe images</h1>
-    <p> recipe has {{ images | count }} photo(s) </p>
-    {% if images %}
-    <form action="/remove_images" method="post">
-        {% for image in images %}
-        <input type="checkbox" name="image_id" value="{{ image.id }}">
-        <img src="/image/{{ image.id }}" /> <br />
-        {% endfor %}
-        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-        <p><input type="submit" value="delete selected photo(s)" /></p>
-    </form>
-    {% endif %}
+{% block title %}Recipe images{% endblock %}
 
-    <p> <a href="/recipe/{{ recipe.id }}"> back to recipe </a></p>
+{% block content %}
+<h2>recipe images</h2>
+<p> recipe has {{ images | count }} photo(s) </p>
+{% if images %}
+<form action="/remove_images" method="post">
+    {% for image in images %}
+    <input type="checkbox" name="image_id" value="{{ image.id }}">
+    <img src="/image/{{ image.id }}" /> <br />
+    {% endfor %}
+    <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <p><input type="submit" value="delete selected photo(s)" /></p>
+</form>
+{% endif %}
 
-    <h2>add new photos</h2>
-    <form action="/add_image" method="post" enctype="multipart/form-data">
-        <p>
-        photo: <input type="file" name="image" accept=".png" />
-        </p>
-        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-        <input type="submit" value="add photo" />
-    </form>
+<p> <a href="/recipe/{{ recipe.id }}"> back to recipe </a></p>
 
-</body>
-</html>
+<h3>add new photos</h3>
+<form action="/add_image" method="post" enctype="multipart/form-data">
+    <p>
+    photo: <input type="file" name="image" accept=".png" />
+    </p>
+    <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="add photo" />
+</form>
+{% endblock %}

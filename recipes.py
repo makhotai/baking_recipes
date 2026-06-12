@@ -21,6 +21,7 @@ def add_recipe(title, description_r,
     sql = """INSERT INTO recipe_classes (recipe_id, title) VALUES (?, ?)"""
     for title in classes:
         db.execute(sql, [recipe_id, title])
+    return recipe_id
 
 def get_classes(recipe_id):
     sql = "SELECT title FROM recipe_classes WHERE recipe_id = ?"

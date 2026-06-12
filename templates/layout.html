@@ -25,7 +25,11 @@
          | <a href="/new_recipe">add new recipe</a>
         {% endif %}
     </p>
-
+    {% for message in get_flashed_messages() %}
+    <div class="info">
+        <b>{{ message }}</b>
+    </div>
+  {% endfor %}
     {% block content %}{% endblock %}
 
 </body>

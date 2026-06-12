@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import abort, make_response, redirect, render_template, request, session
+from flask import abort, flash, make_response, redirect, render_template, request, session
 import db
 import config
 import secrets
@@ -103,10 +103,8 @@ def create_recipe():
             if my_class not in all_classes:
                 abort(403)
     
-    recipes.add_recipe(title, description_r,
+    recipe_id = recipes.add_recipe(title, description_r,
     servings, ingredients, method, user_id, classes)
-    
-    recipe_id = db.last_insert_id()
 
     return redirect("/recipe/" + str(recipe_id))
 
@@ -218,11 +216,12 @@ def add_image():
         abort(403)
     file = request.files["image"]
     if not file.filename.endswith(".png"):
-        return "ERROR: the wrong file format"
-
+        flash("ERROR: the wrong file format")
+        return redirect("/images/" + str(recipe_id))
     image = file.read()
-    if len(image) > 1000 * 1024:
-        return "ERROR: the file is too big"
+    if len(image) > 100 * 1024:
+        flash("ERROR: the file is too big")
+        return redirect("/images/" + str(recipe_id))
 
     recipes.add_image(recipe_id, image)
     return redirect("/images/" + str(recipe_id))
@@ -276,11 +275,13 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "ERROR: passwords do not match"
+        flash("ERROR: passwords do not match")
+        return redirect("/register")
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "ERROR: the username already exists"
+        flash("ERROR: the username already exists")
+        return redirect("/register")
     return """ <p>user account has been created :)</p>
     <p><a href="/">go to main page</a></p>
     <p><a href="/login">log in</a></p> """
@@ -301,7 +302,8 @@ def login():
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
-            return "ERROR: the username or/and password are incorrect"
+            flash("ERROR: the username or/and password are incorrect")
+            return redirect("/login")
 
 @app.route("/logout")
 def logout():
