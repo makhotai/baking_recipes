@@ -1,13 +1,15 @@
+import secrets
 import sqlite3
+import re
+
+
 from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
-import db
-import config
-import secrets
 import markupsafe
+
+import config
 import recipes
 import users
-import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -38,10 +40,10 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         abort(404)
-    recipes = users.get_recipes(user_id)
+    user_recipes = users.get_recipes(user_id)
     recipe_count = users.count_recipes(user_id)
     review_count = users.count_reviews(user_id)
-    return render_template("show_user.html", user=user, recipes=recipes,
+    return render_template("show_user.html", user=user, recipes=user_recipes,
                            recipe_count=recipe_count, review_count=review_count)
 
 @app.route("/find_recipe")
@@ -200,8 +202,7 @@ def remove_recipe(recipe_id):
         if "remove" in request.form:
             recipes.remove_recipe(recipe_id)
             return redirect("/")
-        else:
-            return redirect("/recipe/" + str(recipe_id))
+        return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/add_image", methods=["POST"])
 def add_image():

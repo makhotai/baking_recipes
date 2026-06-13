@@ -4,11 +4,6 @@
 
 {% block content %}
 <h2> log in </h2>
-{% for message in get_flashed_messages() %}
-  <div class="info">
-      <b>{{ message }}</b>
-  </div>
-{% endfor %}
 {% if session.user_id %}
 <p>
   you are logged in as {{ session.username }}

@@ -5,12 +5,6 @@
 {% block content %}
 <h2> create new account </h2>
 
-{% for message in get_flashed_messages() %}
-  <div class="info">
-      <b>{{ message }}</b>
-  </div>
-{% endfor %}
-
 {% if session.user_id %}
 <p>
   you are logged in as {{ session.username }} <br>
@@ -23,7 +17,7 @@
 <form action="/create" method="post">
   <p>
     <b><label for="username">username</label>:</b> <br />
-    <input type="text" name="username" id="username" />
+    <input type="text" name="username" id="username"/>
   </p>
   <p>
     <b><label for="password1">password</label>:</b> <br />

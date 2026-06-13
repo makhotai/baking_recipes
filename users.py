@@ -1,5 +1,6 @@
-import db
 from werkzeug.security import check_password_hash, generate_password_hash
+
+import db
 
 def get_user(user_id):
     sql = "SELECT id, username FROM users WHERE id = ? "
@@ -15,8 +16,7 @@ def count_recipes(user_id):
     result = db.query(sql, [user_id])
     if result and result[0]["recipe_count"] is not None:
         return result[0]["recipe_count"]
-    else:
-        return None
+    return None
 
 def count_reviews(user_id):
     sql = "SELECT COUNT(id) AS review_count FROM reviews WHERE user_id = ?"
@@ -38,5 +38,4 @@ def check_login(username, password):
 
     if check_password_hash(password_hash, password):
         return user_id
-    else:
-        return None
+    return None
