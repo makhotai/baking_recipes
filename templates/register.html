@@ -1,48 +1,40 @@
+{% extends "layout.html" %}
 
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="/static/main.css">
-<head>
-  <title>Register</title>
-</head>
+{% block title %}Register{% endblock %}
 
-<body>
-  <h1> baking recipes </h1>
-  <h2> create new account </h2>
+{% block content %}
+<h2> create new account </h2>
 
-  {% for message in get_flashed_messages() %}
-    <div class="info">
-        <b>{{ message }}</b>
-    </div>
-  {% endfor %}
+{% for message in get_flashed_messages() %}
+  <div class="info">
+      <b>{{ message }}</b>
+  </div>
+{% endfor %}
 
-  {% if session.user_id %}
+{% if session.user_id %}
+<p>
+  you are logged in as {{ session.username }} <br>
+  please, log out if you want to create new account first
+</p>
+<p>
+  <a href="/logout">log out</a>
+</p>
+{% else %}
+<form action="/create" method="post">
   <p>
-    you are logged in as {{ session.username }} <br>
-    please, log out if you want to create new account first
+    <b><label for="username">username</label>:</b> <br />
+    <input type="text" name="username" id="username" />
   </p>
   <p>
-    <a href="/logout">log out</a>
+    <b><label for="password1">password</label>:</b> <br />
+    <input type="password" name="password1" id="password1"/>
   </p>
-  {% else %}
-  <form action="/create" method="post">
-    <p>
-      username: <br />
-      <input type="text" name="username" />
-    </p>
-    <p>
-      password: <br />
-      <input type="password" name="password1" />
-    </p>
-    <p>
-      password once again: <br />
-      <input type="password" name="password2" />
-    </p>
-    <input type="submit" value="create new account" />
-  </form>
-  <p>already have an account? <a href="/login">log in</a></p>
-  {% endif %}
-  <p> <a href="/"> back to main page</a></p>
-</body>
-
-</html>
+  <p>
+    <b><label for="password2">password once again</label>:</b> <br />
+    <input type="password" name="password2" id="password2"/>
+  </p>
+  <input type="submit" value="create new account" />
+</form>
+<p>already have an account? <a href="/login">log in</a></p>
+{% endif %}
+{% endblock %}

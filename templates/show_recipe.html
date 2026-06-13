@@ -55,11 +55,13 @@
 {% if session.username %}
   {% if session.user_id != recipe.user_id %}
     <form action="/create_review" method="post">
-      <p> your rating of the recipe (1-5): <br />
+      <p>
+        <label for="rating_review">your rating of the recipe (1-5)</label>:<br />
         <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
-        <input type="text" name="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
-        comment: <br />
-        <textarea name="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
+        <input type="text" name="rating_review" id="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
+
+        <label for="text_review">comment</label>:<br />
+        <textarea name="text_review" id="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
       </p>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="add new comment" />
@@ -76,12 +78,14 @@
 
 <h2>comments and reviews</h2>
 {% for review in reviews%}
-<p> review by: <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
-  rating: {{ review.rating_review }} <br />
+<p>
+  <b>review by: </b>
+  <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
+  <b>rating: </b>{{ review.rating_review }}<br />
   {{ review.text_review | show_lines }}
 </p>
 {% endfor %}
 {% if not reviews %}
-<p>there are no reviews jet</p>
+<p>there are no reviews yet</p>
 {% endif %}
 {% endblock %}
