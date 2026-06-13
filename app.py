@@ -282,9 +282,7 @@ def create():
     except sqlite3.IntegrityError:
         flash("ERROR: the username already exists")
         return redirect("/register")
-    return """ <p>user account has been created :)</p>
-    <p><a href="/">go to main page</a></p>
-    <p><a href="/login">log in</a></p> """
+    return render_template("account_created.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
