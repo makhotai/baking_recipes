@@ -8,8 +8,8 @@
 <form action="/update_recipe" method="post">
 
 <p>
-  <b>recipe name:</b> <br />
-  <input type="text" name="title" value="{{ recipe.title }}" size="40" maxlength="120" required/>
+  <b><label for="title">recipe name</label>:</b> <br />
+  <input type="text" name="title" id="title" value="{{ recipe.title }}" size="40" maxlength="120" required/>
 </p>
 
 <p>
@@ -25,23 +25,23 @@
 
 
 <p>
-  <b>description of the recipe:</b> <br />
-  <textarea name="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
+  <b><label for="description_r">description of the recipe</label>:</b> <br />
+  <textarea name="description_r" id="description_r" rows="5" cols="60" maxlength="300" required>{{ recipe.description_r }}</textarea>
 </p>
 
 <p>
-  <b>servings:</b> <br />
-  <input type="text" name="servings" value="{{ recipe.servings }}" maxlength="30" required/>
+  <b><label for="servings">servings</label>:</b> <br />
+  <input type="text" name="servings" id="servings" value="{{ recipe.servings }}" maxlength="30" required/>
 </p>
 
 <p>
-  <b>ingredients:</b> <br />
-  <textarea name="ingredients" rows="5" cols="60" maxlength="900" required>{{ recipe.ingredients }}</textarea>
+  <b><label for="ingredients">ingredients</label>:</b> <br />
+  <textarea name="ingredients" id="ingredients" rows="5" cols="60" maxlength="900" required>{{ recipe.ingredients }}</textarea>
 </p>
 
 <p>
-  <b>method:</b> <br />
-  <textarea name="method" rows="10" cols="60" maxlength="2900" required>{{ recipe.method }}</textarea>
+  <b><label for="method">method</label>:</b> <br />
+  <textarea name="method" id="method" rows="10" cols="60" maxlength="2900" required>{{ recipe.method }}</textarea>
 </p>
 
 <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />

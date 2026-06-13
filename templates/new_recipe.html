@@ -9,8 +9,8 @@
   <h1> new recipe </h1>
   <form action="/create_recipe" method="post">
     <p>
-      <b>recipe name:</b> <br />
-      <input type="text" name="title" size="40" maxlength="120" required/>
+      <b><label for="title">recipe name</label>:</b> <br />
+      <input type="text" name="title" id="title" size="40" maxlength="120" required/>
     </p>
 
     <p>
@@ -24,23 +24,23 @@
     </p>
 
     <p>
-      <b>description of the recipe:</b> <br />
-      <textarea name="description_r" rows="5" cols="60" maxlength="300" required></textarea>
+      <b><label for="description_r">description of the recipe</label>:</b> <br />
+      <textarea name="description_r" id="description_r" rows="5" cols="60" maxlength="300" required></textarea>
     </p>
 
     <p>
-      <b>servings:</b> <br />
-      <input type="text" name="servings" maxlength="30" required/>
+      <b><label for="servings">servings</label>:</b> <br />
+      <input type="text" name="servings" id="servings" maxlength="30" required/>
     </p>
 
     <p>
-      <b>ingredients:</b> <br />
-      <textarea name="ingredients" rows="5" cols="60" maxlength="900" required></textarea>
+      <b><label for="ingredients">ingredients</label>:</b> <br />
+      <textarea name="ingredients" id="ingredients" rows="5" cols="60" maxlength="900" required></textarea>
     </p>
 
     <p>
-      <b>method:</b> <br />
-      <textarea name="method" rows="10" cols="60" maxlength="2900" required></textarea>
+      <b><label for="method">method</label>:</b> <br />
+      <textarea name="method" id="method" rows="10" cols="60" maxlength="2900" required></textarea>
     </p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="add new recipe" />

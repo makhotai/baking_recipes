@@ -8,8 +8,9 @@
 </h2>
 <form action="/find_recipe" method="get">
     <p>
-        search by word: <input type="text" name="query" value="{{ query }}"size="30"/><br>
-        <input type="submit" value="search"/>
+        <b><label for="query">search by word</label>:</b>
+        <input type="text" name="query" value="{{ query }}" id="query" size="30"/><br>
+        <input type="submit" value="search" id="search"/>
     </p>
 
     {% if query %}
