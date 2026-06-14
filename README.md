@@ -31,6 +31,17 @@ Reseptin sivulla näkyy myös osio **comments and reviews**, jossa näytetään 
 ### Lisäksi voi testata: 
 * **Käyttäjän sivu**. Käyttäjäsivu näyttää, montako reseptiä käyttäjä on lisännyt ("user has not published recipes yet"/"user published 1 recipe:"/"user published {count} recipes:") ja listan käyttäjän lisäämistä resepteistä. Jos käyttäjää ei ole olemassa, sovellus palauttaa virheen 404.
 
+## Välipalautus 3 (14.06)
+### Pakkoliset toiminnot:
+* Käyttäjä voi luoda tunnuksen ja kirjautua sovellukseen.
+* Käyttäjä voi lisätä sovellukseen leivontareseptejä. Reseptissä näytetään kuvaus, tarvittavat ainekset, annosmäärä, valmistusohjeet, kuvat, luomisaika (ja myös viimeisin muokkausaika, jos reseptiä on muokattu).
+* Käyttäjä voi myös muokata ja poistaa lisäämiään reseptejä.
+* Käyttäjä näkee sovellukseen lisätyt leivontareseptit, sekä omansa että muiden käyttäjien lisäämät.
+* Käyttäjä voi etsiä reseptejä hakusanalla.
+* Käyttäjäsivu näyttää, montako reseptiä käyttäjä on lisännyt, listan käyttäjän lisäämistä resepteistä sekä käyttäjän kommenttien määrän.
+* Käyttäjä voi valita reseptille yhden tai useamman kategorian (esim. kakkureseptit, suolaiset leivonnaiset ja jne).
+* Käyttäjä voi antaa reseptille kommentin ja arvosanan. Reseptin yhteydessä näytetään kommentit ja keskimääräinen arvosana.
+
 ## Sovelluksen asennus
 Asenna `flask`-kirjasto:
 
