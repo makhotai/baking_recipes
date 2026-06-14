@@ -3,32 +3,34 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<h2> {{ user.username }}'s page </h2>
+<div class="content">
+    <h2> {{ user.username }}'s page </h2>
 
-<p>
-    {% if review_count == 1 %}
-        the user has left <b>1 review</b> and 
-    {% else %}
-        the user has left <b>{{ review_count }} reviews</b> and 
-    {% endif %}
+    <p>
+        {% if review_count == 1 %}
+            the user has left <b>1 review</b> and 
+        {% else %}
+            the user has left <b>{{ review_count }} reviews</b> and 
+        {% endif %}
+
+        {% if recipes %}
+            {% if recipe_count == 1 %}
+                has published <b>1 recipe</b>
+            {% else %}
+                has published <b>{{ recipe_count }} recipes</b>
+            {% endif %}
+        {% else %}
+            has <b>not published recipes</b> yet
+        {% endif %}
+    </p>
 
     {% if recipes %}
-        {% if recipe_count == 1 %}
-            has published <b>1 recipe</b>
-        {% else %}
-            has published <b>{{ recipe_count }} recipes</b>
-        {% endif %}
-    {% else %}
-        has <b>not published recipes</b> yet
+        <h3> recipes published by {{ user.username }}: </h3>
+        <ul>
+            {% for recipe in recipes %}
+            <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+            {% endfor %}
+        </ul>
     {% endif %}
-</p>
-
-{% if recipes %}
-    <h3> recipes published by {{ user.username }}: </h3>
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
+</div>
 {% endblock %}

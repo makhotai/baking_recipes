@@ -3,8 +3,6 @@
 {% block title %}{{ recipe.title }}{% endblock %}
 
 {% block content %}
-<h2> {{ recipe.title }} </h2>
-
 {% if session.user_id == recipe.user_id %}
 <p>
   <a href="/edit_recipe/{{ recipe.id }}">edit recipe</a> | 
@@ -14,6 +12,8 @@
 {% endif %}
 
 <div class="content">
+  <h2> {{ recipe.title }} </h2>
+
   <p>
     firstly published: {{ recipe.created_at }}
     {% if recipe.created_at != recipe.updated_at %}
@@ -83,18 +83,22 @@
   {% endif %}
 </div>
 
-<h2>comments and reviews</h2>
-{% for review in reviews%}
-<div class="item"> 
-  <p>
-    <b>review by: </b>
-    <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
-    <b>rating: </b>{{ review.rating_review }}<br />
-    {{ review.text_review | show_lines }}
-  </p>
+<div class="content">
+  <h2>comments and reviews</h2>
+
+  {% for review in reviews%}
+    <div class="item">
+      <p>
+        <b>review by: </b>
+        <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
+        <b>rating: </b>{{ review.rating_review }}<br />
+        {{ review.text_review | show_lines }}
+      </p>
+    </div>
+  {% endfor %}
+
+  {% if not reviews %}
+    <p>there are no reviews yet</p>
+  {% endif %}
 </div>
-{% endfor %}
-{% if not reviews %}
-<p>there are no reviews yet</p>
-{% endif %}
 {% endblock %}

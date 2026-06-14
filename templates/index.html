@@ -3,17 +3,19 @@
 {% block title %}Baking recipes{% endblock %}
 
 {% block content %}
-<h2> recipes </h2>
-{% if recipes %}
+<div class="content">
+    <h2> recipes </h2>
 
-    {% for recipe in recipes %}
-    <div class="item">
-        <a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a> 
-        by <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a>
-    </div>
-    {% endfor %}
+    {% if recipes %}
+        {% for recipe in recipes %}
+            <div class="item">
+                <a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a>
+                by <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a>
+            </div>
+        {% endfor %}
 
-{% else %}
-    <p> there are no recipes added yet</p>
-{% endif %}
+    {% else %}
+        <p> there are no recipes added yet</p>
+    {% endif %}
+</div>
 {% endblock %}
