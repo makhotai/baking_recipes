@@ -109,7 +109,6 @@ def get_image(image_id):
 
 def add_image(recipe_id, image):
     sql = "INSERT INTO images (recipe_id, image) VALUES (?, ?)"
-
     db.execute(sql, [recipe_id, image])
 
 def remove_image(recipe_id, image_id):

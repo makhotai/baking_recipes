@@ -116,7 +116,7 @@ def create_review():
     check_csrf()
 
     rating_review = request.form["rating_review"]
-    if not re.search("^[[1-5]{0,1}$", rating_review):
+    if not re.search("^[1-5]{0,1}$", rating_review):
         abort(403)
     text_review = request.form["text_review"]
     if not text_review or len(text_review) > 1000:
@@ -273,8 +273,14 @@ def register():
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
+    if not username or len(username) > 16:
+            abort(403)
     password1 = request.form["password1"]
+    if not password1:
+            abort(403)
     password2 = request.form["password2"]
+    if not password2:
+            abort(403)
     if password1 != password2:
         flash("ERROR: passwords do not match")
         return redirect("/register")
@@ -292,7 +298,11 @@ def login():
 
     if request.method == "POST":
         username = request.form["username"]
+        if not username:
+            abort(403)
         password = request.form["password"]
+        if not password:
+            abort(403)
 
         user_id = users.check_login(username, password)
         if user_id:

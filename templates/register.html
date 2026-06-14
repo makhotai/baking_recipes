@@ -16,16 +16,16 @@
 {% else %}
 <form action="/create" method="post">
   <p>
-    <b><label for="username">username</label>:</b> <br />
-    <input type="text" name="username" id="username"/>
+    <b><label for="username">username</label>:</b>    (up to 16 symbols)<br />
+    <input type="text" name="username" id="username" maxlength="16" required/>
   </p>
   <p>
     <b><label for="password1">password</label>:</b> <br />
-    <input type="password" name="password1" id="password1"/>
+    <input type="password" name="password1" id="password1" required/>
   </p>
   <p>
     <b><label for="password2">password once again</label>:</b> <br />
-    <input type="password" name="password2" id="password2"/>
+    <input type="password" name="password2" id="password2" required/>
   </p>
   <input type="submit" value="create new account" />
 </form>
