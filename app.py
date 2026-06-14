@@ -275,12 +275,18 @@ def create():
     username = request.form["username"]
     if not username or len(username) > 16:
             abort(403)
+    if not re.search(r'^\S+$', username):
+        abort(403)
     password1 = request.form["password1"]
-    if not password1:
+    if not password1 or len(password1) > 16 or len(password1) < 4:
             abort(403)
+    if not re.search(r'^\S+$', password1):
+        abort(403)
     password2 = request.form["password2"]
-    if not password2:
+    if not password2 or len(password2) > 16 or len(password2) < 4:
             abort(403)
+    if not re.search(r'^\S+$', password2):
+        abort(403)
     if password1 != password2:
         flash("ERROR: passwords do not match")
         return redirect("/register")
