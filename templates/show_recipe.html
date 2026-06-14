@@ -13,77 +13,86 @@
 </p>
 {% endif %}
 
-<p>
-  firstly published: {{ recipe.created_at }}
-  {% if recipe.created_at != recipe.updated_at %}
-  last update: {{ recipe.updated_at }}
-  {% endif %}
-</p>
+<div class="content">
+  <p>
+    firstly published: {{ recipe.created_at }}
+    {% if recipe.created_at != recipe.updated_at %}
+    last update: {{ recipe.updated_at }}
+    {% endif %}
+  </p>
 
-<p>
-  <b>author:</b> <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> | 
-  {% if classes%}
-    <b>categorie(s):</b>
-    {% for class in classes %}
-      {{ class }};
-    {% endfor %}
-  {% endif %}
-  {% if rating_avg is not none %}
-    <b>recipe rating:</b> {{ rating_avg }} out of 5
+  <p>
+    <b>author:</b> <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a> | 
+    {% if rating_avg is not none %}
+      <b>recipe rating:</b> {{ rating_avg }} out of 5
+    {% else %}
+      <b>recipe rating:</b> no ratings yet
+    {% endif %}
+  </p>
+
+  <p> 
+    <b>servings:</b> {{ recipe.servings }}
+
+    {% if classes%}
+     | <b>categorie(s):</b>
+      {% for class in classes %}
+        {{ class }};
+      {% endfor %}
+    {% endif %}
+  </p>
+
+  <h3> recipe description </h3>
+  <p>{{ recipe.description_r | show_lines }} </p>
+
+  {% for image in images %}
+  <img src="/image/{{ image.id }}" alt="Recipe picture"/>
+  {% endfor %}
+
+
+  <h3> ingredients: </h3>
+  <p>{{ recipe.ingredients | show_lines }} </p>
+
+  <h3> method: </h3>
+  <p>{{ recipe.method | show_lines }} </p>
+</div>
+
+<div class="content">
+  <h3>write a review</h3>
+  {% if session.username %}
+    {% if session.user_id != recipe.user_id %}
+      <form action="/create_review" method="post">
+        <p>
+          <label for="rating_review">your rating of the recipe (1-5)</label>:<br />
+          <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
+          <input type="text" name="rating_review" id="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
+
+          <label for="text_review">comment</label>:<br />
+          <textarea name="text_review" id="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
+        </p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        <input type="submit" value="add new comment" />
+      </form>
+    {% else %}
+      <p>sorry, but you cannot leave a review to your own recipe</p>
+    {% endif %}
   {% else %}
-    <b>recipe rating:</b> no ratings yet
-  {% endif %}
-</p>
-
-<p> <b>servings:</b> {{ recipe.servings }} </p>
-
-<h3> recipe description </h3>
-<p>{{ recipe.description_r | show_lines }} </p>
-
-{% for image in images %}
-<img src="/image/{{ image.id }}" alt="Recipe picture"/>
-{% endfor %}
-
-
-<h3> ingredients: </h3>
-<p>{{ recipe.ingredients | show_lines }} </p>
-
-<h3> method: </h3>
-<p>{{ recipe.method | show_lines }} </p>
-
-<h3>write a review</h3>
-{% if session.username %}
-  {% if session.user_id != recipe.user_id %}
-    <form action="/create_review" method="post">
       <p>
-        <label for="rating_review">your rating of the recipe (1-5)</label>:<br />
-        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"/>
-        <input type="text" name="rating_review" id="rating_review" size="15" pattern="[1-5]{0,1}" required/> <br />
-
-        <label for="text_review">comment</label>:<br />
-        <textarea name="text_review" id="text_review" rows="10" cols="60" maxlength="1000" required></textarea>
+        please, <a href="/register">register</a> or <a href="/login">log in</a> 
+        to write a review
       </p>
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-      <input type="submit" value="add new comment" />
-    </form>
-  {% else %}
-    <p>sorry, but you cannot leave a review to your own recipe</p>
   {% endif %}
-{% else %}
-    <p>
-      please, <a href="/register">register</a> or <a href="/login">log in</a> 
-      to write a review
-    </p>
-{% endif %}
+</div>
 
 <h2>comments and reviews</h2>
 {% for review in reviews%}
-<p>
-  <b>review by: </b>
-  <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
-  <b>rating: </b>{{ review.rating_review }}<br />
-  {{ review.text_review | show_lines }}
-</p>
+<div class="item"> 
+  <p>
+    <b>review by: </b>
+    <a href="/user/{{ review.user_id }}">{{ review.username }}</a><br />
+    <b>rating: </b>{{ review.rating_review }}<br />
+    {{ review.text_review | show_lines }}
+  </p>
+</div>
 {% endfor %}
 {% if not reviews %}
 <p>there are no reviews yet</p>

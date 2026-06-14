@@ -6,25 +6,23 @@
   <link rel="stylesheet" href="/static/main.css">
 </head>
 
-
-    <h1>baking recipes</h1>
-    
-    {% if session.user_id %}
+    <div class="nav">
+        <h1>baking recipes</h1>
         <p>
-            logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a> | <a href="/logout">log out</a>
-        </p>
-    {% else %}
-        <p>
-            <a href="/login">log in</a> | <a href="/register">register</a>
-        </p>
-    {% endif %}
+            {% if session.user_id %}
+                logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a> 
+                | <a href="/logout">log out</a> <br />
+            {% else %}
+                <a href="/login">log in</a> | <a href="/register">register</a> <br />
+            {% endif %}
 
-    <p>
-        <a href="/">main page</a> | <a href="/find_recipe">search recipe</a> 
-        {% if session.user_id %}
-         | <a href="/new_recipe">add new recipe</a>
-        {% endif %}
-    </p>
+            <a href="/">main page</a> | <a href="/find_recipe">search recipe</a> 
+            {% if session.user_id %}
+            | <a href="/new_recipe">add new recipe</a>
+            {% endif %}
+        </p>
+    </div>
+
     {% for message in get_flashed_messages() %}
     <div class="info">
         <b>{{ message }}</b>
