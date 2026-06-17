@@ -69,13 +69,17 @@ def remove_recipe(recipe_id):
     sql = "DELETE FROM recipes WHERE id = ?"
     db.execute(sql, [recipe_id])
 
-def find_recipes(query):
-    sql = """SELECT id, title
+def find_recipes(query_word, query_class):
+    sql = """SELECT DISTINCT recipes.id, recipes.title,
+             users.id AS user_id, users.username
              FROM recipes
-             WHERE title LIKE ? OR description_r LIKE ?
-             ORDER BY id DESC"""
-    like = "%" + query + "%"
-    return db.query(sql, [like, like])
+             JOIN users ON recipes.user_id = users.id
+             LEFT JOIN recipe_classes ON recipe_classes.recipe_id = recipes.id
+             WHERE (recipes.title LIKE ? OR recipes.description_r LIKE ?)
+             AND (? = '' OR recipe_classes.title = ?)
+             ORDER BY recipes.id DESC"""
+    like = "%" + query_word + "%"
+    return db.query(sql, [like, like, query_class, query_class])
 
 def add_review(rating_review, text_review, user_id, recipe_id):
     sql = """INSERT INTO reviews (rating_review, text_review, user_id, recipe_id)

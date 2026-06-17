@@ -48,13 +48,20 @@ def show_user(user_id):
 
 @app.route("/find_recipe")
 def find_recipe():
-    query = request.args.get("query")
-    if query:
-        results = recipes.find_recipes(query)
+    query_word = request.args.get("query_word")
+    query_class = request.args.get("query_class")
+    all_classes = recipes.get_class()
+    if query_word or query_class:
+        if len(query_word) > 30:
+            abort(403)
+        results = recipes.find_recipes(query_word, query_class)
     else:
-        query = ""
+        query_word = ""
+        query_class = ""
         results = []
-    return render_template("find_recipe.html", query=query, results=results)
+    return render_template("find_recipe.html",
+                           query_word=query_word, query_class=query_class,
+                           classes=all_classes, results=results)
 
 @app.route("/recipe/<int:recipe_id>")
 def show_recipe(recipe_id):
