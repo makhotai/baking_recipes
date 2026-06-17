@@ -105,8 +105,8 @@ def create_recipe():
             if my_class not in all_classes:
                 abort(403)
     
-    recipe_id = recipes.add_recipe(title, description_r,
-    servings, ingredients, method, user_id, classes)
+    recipe_id = recipes.add_recipe(title, description_r, servings,
+                                   ingredients, method, user_id, classes)
 
     return redirect("/recipe/" + str(recipe_id))
 
@@ -144,7 +144,8 @@ def edit_recipe(recipe_id):
     all_classes = recipes.get_class()
     selected_classes = recipes.get_classes(recipe_id)
     return render_template("edit_recipe.html", recipe=recipe,
-        all_classes=all_classes, selected_classes=selected_classes)
+                           all_classes=all_classes,
+                           selected_classes=selected_classes)
 
 @app.route("/update_recipe", methods=["POST"])
 def update_recipe():
@@ -182,7 +183,7 @@ def update_recipe():
                 abort(403)
 
     recipes.update_recipe(recipe_id, title, description_r,
-    servings, ingredients, method, classes)
+                          servings, ingredients, method, classes)
 
     return redirect("/recipe/" + str(recipe_id))
 
