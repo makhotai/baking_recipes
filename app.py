@@ -347,3 +347,13 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
+
+@app.before_request
+def before_request():
+    g.start = time.time()
+
+@app.after_request
+def after_request(response):
+    elapsed_time = round(time.time() - g.start, 2)
+    print("elapsed time:", elapsed_time, "s")
+    return response
