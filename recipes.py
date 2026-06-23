@@ -119,3 +119,18 @@ def add_image(recipe_id, image):
 def remove_image(recipe_id, image_id):
     sql = "DELETE FROM images WHERE id = ? AND recipe_id = ?"
     db.execute(sql, [image_id, recipe_id])
+
+def count_recipes():
+    sql = "SELECT COUNT(*) AS recipe_count FROM recipes"
+    result = db.query(sql)
+    return result[0]["recipe_count"]
+
+def get_recipes(page, page_size):
+    offset = page_size * (page - 1)
+    sql = """SELECT recipes.id, recipes.title,
+             users.id AS user_id, users.username
+             FROM recipes, users
+             WHERE recipes.user_id = users.id
+             ORDER BY recipes.id DESC
+             LIMIT ? OFFSET ?"""
+    return db.query(sql, [page_size, offset])
