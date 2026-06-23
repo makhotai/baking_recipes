@@ -11,8 +11,8 @@ db.execute("DELETE FROM recipe_classes")
 db.execute("DELETE FROM images")
 
 user_count = 1000
-recipe_count = 10**5
-review_count = 10**6
+recipe_count = 10**6
+review_count = 10**7
 
 for i in range(1, user_count + 1):
     password = "abc" + str(i)
